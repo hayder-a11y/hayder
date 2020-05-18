@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { display: block; }
+		</style>
+	</head>
+	<body onkeypress= setcond()>
+		<script src="three.js"></script>
+		<script>
+	var scene = new THREE.Scene();  
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
+var renderer = new THREE.WebGLRenderer(); 
+renderer.setSize( window.innerWidth, window.innerHeight ); 
+document.body.appendChild( renderer.domElement );
+var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var cube = new THREE.Mesh( geometry, material );
+var group = new THREE.Object3D();
+var c = 0x00ff00;
+for ( var i =0; i <20 ; i++)
+{
+	var x = Math.floor(Math.random() * 256);
+    var y = Math.floor(Math.random() * 256);
+    var z = Math.floor(Math.random() * 256);
+	material = new THREE.MeshBasicMaterial( { color: "rgb(" + x + "," + y + "," + z + ")" } );
+	geometry = new THREE.BoxGeometry( 1*Math.random(), 1*Math.random(), 1*Math.random());
+	cube = new THREE.Mesh( geometry, material );
+	cube.position.x+=Math.random();
+	cube.position.y+=Math.random();
+	cube.position.z+=Math.random();
+	group.add(cube);
+}
+
+scene.add( group );
+camera.position.z = 5;
+var render = function () {
+    requestAnimationFrame( render );
+    group.rotation.x += 0.1;
+   group.rotation.y += 0.1;
+    renderer.render(scene, camera);
+};
+render();
+		</script>
+	</body>
+</html>
